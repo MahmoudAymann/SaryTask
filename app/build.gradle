@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk rootProject.ext.compileSdk
+
+    defaultConfig {
+        applicationId "com.sary.task"
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation deps.lifeCycleViewModelKtx
+    implementation deps.lifecycleRuntimeKtx
+    implementation deps.navFragmentKtx
+    implementation deps.navUIKtx
+    implementation deps.navRuntimeKtx
+    implementation deps.collectionKtx
+    implementation deps.activityKtx
+    implementation deps.fragmentKtx
+    implementation deps.appCompat
+    implementation deps.materialDesign
+    implementation deps.constraintLayout
+    implementation deps.coreKtx
+    //Hilt
+    implementation deps.hilt
+    kapt deps.hiltAndroidCompilerKapt
+    kapt deps.hiltCompilerKapt
+    implementation deps.hiltFragment
+    //Logging
+    implementation deps.timber
+
+    implementation deps.gson
+    implementation deps.sdp
+    implementation deps.ssp
+    //Network Retrofit
+    implementation deps.retrofit
+    implementation deps.gsonConverter
+    implementation deps.loggingInterceptor
+    implementation deps.coroutineAdapterRetrofit
+}
