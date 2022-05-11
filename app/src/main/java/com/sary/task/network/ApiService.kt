@@ -10,7 +10,7 @@ interface ApiService {
         const val BANNERS = "baskets/325514/banners/"
     }
 
-    @GET
+    @GET(BANNERS)
     fun getBanners(): Single<BaseResponse<BannerResponseItem, Any>>
 
 }

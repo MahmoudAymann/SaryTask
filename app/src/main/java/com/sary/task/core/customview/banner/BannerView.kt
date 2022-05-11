@@ -36,6 +36,10 @@ class BannerView(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         setAutoSliding()
     }
 
+    fun setList(list: List<BannerItem>) {
+        adapter?.submitList(list)
+    }
+
     private fun setAutoSliding() {
         timer = TimerUtil.setTimerWithPeriodAndDelay({
             if (currentPage == adapter?.itemCount) {

@@ -7,6 +7,9 @@ import com.sary.task.core.arch.HashMapParams
 import org.json.JSONObject
 import timber.log.Timber
 
+fun Any.localize(context: Context): String =
+    if (this is Int) context.getString(this) else this.toString()
+
 val Context.connectivityManager: ConnectivityManager
     get() =
         this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
