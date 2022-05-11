@@ -1,0 +1,13 @@
+package com.sary.task.features.catalog.data.datasource.remote
+
+import com.sary.task.features.catalog.data.entity.BannerResponseItem
+import com.sary.task.network.ApiService
+import com.sary.task.network.BaseResponse
+import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
+
+class CatalogRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService) :
+    CatalogRemoteDataSource {
+    override fun getBanners(): Single<BaseResponse<BannerResponseItem, Any>> =
+        apiService.getBanners()
+}

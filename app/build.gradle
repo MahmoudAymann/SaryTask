@@ -65,10 +65,15 @@ dependencies {
     implementation deps.sdp
     implementation deps.ssp
 
-    implementation deps.coilBase
+    implementation deps.coil
     //Network Retrofit
     implementation deps.retrofit
     implementation deps.gsonConverter
     implementation deps.loggingInterceptor
-    implementation deps.coroutineAdapterRetrofit
+
+    //Rx
+    implementation deps.rxJava
+    implementation deps.rxAndroid
+    implementation deps.rxRetrofitAdapter
+
 }

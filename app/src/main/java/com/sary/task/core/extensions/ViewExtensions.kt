@@ -14,10 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,8 +25,6 @@ import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.sary.task.R
 import com.sary.task.core.android.BaseListAdapter
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 typealias InflateFragment<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -41,13 +37,12 @@ fun View.getAppColorFromRes(@ColorRes color: Int): Int {
     return ContextCompat.getColor(context, color)
 }
 
-fun <T : Any?, L : SharedFlow<T>> LifecycleOwner.observe(flow: L, body: (T) -> Unit) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collect {
-                body.invoke(it)
-            }
-        }
+fun <T : Any?, L : LiveData<T>> LifecycleOwner.observe(flow: L, body: (T) -> Unit) {
+    if (this is Activity) {
+        flow.observe(this, body)
+    } else {
+        this as Fragment
+        flow.observe(viewLifecycleOwner, body)
     }
 }
 

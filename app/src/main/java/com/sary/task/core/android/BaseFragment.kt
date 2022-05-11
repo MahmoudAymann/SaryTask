@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.sary.task.activity.MainActivity
 import com.sary.task.core.extensions.InflateFragment
 
 abstract class BaseFragment<VB : ViewBinding>(
@@ -27,5 +28,10 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    fun showProgress(show: Boolean) {
+        (activity as? MainActivity)?.showProgress(show)
     }
 }

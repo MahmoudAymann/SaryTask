@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sary.task.R
 import com.sary.task.core.android.BaseActivity
+import com.sary.task.core.extensions.show
 import com.sary.task.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     fun setCity(city: String) {
         binding.chipCity.text = city
+    }
+
+    fun showProgress(show: Boolean) {
+        binding.pb.show(show)
     }
 
 }
