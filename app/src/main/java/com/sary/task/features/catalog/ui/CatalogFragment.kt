@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.sary.task.R
 import com.sary.task.core.android.BaseFragment
 import com.sary.task.core.customview.banner.BannerAdapter
+import com.sary.task.core.customview.headerstatus.HeaderStatusType
 import com.sary.task.core.extensions.localize
 import com.sary.task.core.extensions.observe
 import com.sary.task.databinding.FragmentCatalogBinding
@@ -33,6 +35,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBind
 
     private fun initUI() {
         binding.bannerView.setupBanner(bannerAdapter)
+        binding.headerStatusView.let {
+            it.setHeader(R.string.account_auth_status.localize(requireContext()))
+            it.setStatus(HeaderStatusType.Start(R.string.in_review.localize(requireContext())))
+        }
     }
 
     private val bannerAdapter by lazy { BannerAdapter() }

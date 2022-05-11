@@ -41,6 +41,7 @@
             app:chipCornerRadius="@dimen/_12sdp"
             app:chipIcon="@drawable/ic_arrow_down"
             app:chipStrokeWidth="0dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_search"
             app:layout_constraintTop_toTopOf="parent"

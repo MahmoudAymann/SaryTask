@@ -2,4 +2,6 @@
     <string name="app_name" translatable="false">Sary</string>
     <string name="deliver_to">Deliver to:</string>
     <string name="no_network_found">No network found</string>
+    <string name="account_auth_status">Account Auth Status</string>
+    <string name="in_review">In Review</string>
 </resources>
