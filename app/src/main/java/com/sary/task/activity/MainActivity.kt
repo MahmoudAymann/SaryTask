@@ -16,5 +16,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         navController = navHostFragment.navController
+
+        setCity(getString(R.string.app_name))
     }
+
+
+    fun setCity(city: String) {
+        binding.chipCity.text = city
+    }
+
 }

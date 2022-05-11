@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Sary Task</string>
+    <string name="app_name" translatable="false">Sary</string>
+    <string name="deliver_to">Deliver to:</string>
 </resources>

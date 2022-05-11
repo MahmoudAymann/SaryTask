@@ -64,6 +64,8 @@ dependencies {
     implementation deps.gson
     implementation deps.sdp
     implementation deps.ssp
+
+    implementation deps.coilBase
     //Network Retrofit
     implementation deps.retrofit
     implementation deps.gsonConverter
