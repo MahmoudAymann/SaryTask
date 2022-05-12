@@ -21,7 +21,7 @@ data class CategoriesOtherResponse(
 )
 
 //class holder for all views
-data class CategoriesItemParent(
+data class CategoryItemMainResponse(
 
     @field:SerializedName("metadata")
     val metadata: CategoriesMetadata? = null,
@@ -30,7 +30,7 @@ data class CategoriesItemParent(
     val uiType: String? = null,
 
     @field:SerializedName("data")
-    val data: List<CategoryChildItem?>? = null,
+    val data: List<CategoryItemResponse?>? = null,
 
     @field:SerializedName("show_title")
     val showTitle: Boolean? = null,
@@ -63,7 +63,7 @@ data class CategoriesItemParent(
     val groupId: Int? = null
 )
 
-data class CategoryChildItem(
+data class CategoryItemResponse(
 
     @field:SerializedName("cover")
     val cover: Any? = null,
