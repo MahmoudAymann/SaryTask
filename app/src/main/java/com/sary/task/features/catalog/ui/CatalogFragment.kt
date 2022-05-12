@@ -8,9 +8,6 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sary.task.R
 import com.sary.task.core.android.BaseFragment
@@ -21,17 +18,15 @@ import com.sary.task.databinding.FragmentCatalogBinding
 import com.sary.task.databinding.ItemCategoryHeaderViewBinding
 import com.sary.task.features.catalog.data.entity.CategoryItem
 import com.sary.task.features.catalog.data.entity.CategoryMainItem
-import com.sary.task.features.catalog.data.entity.CategoryUIType
+import com.sary.task.helper.RvUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBinding::inflate) {
 
     private val viewModel by viewModels<CatalogViewModel>()
     private val bannerAdapter by lazy { BannerAdapter() }
-
+    private val rvUtil by lazy { RvUtil(requireContext()) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
@@ -40,8 +35,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBind
                 is CatalogUiState.Error -> handleError(it.message)
                 is CatalogUiState.Loading -> showProgress(it.isLoading)
                 is CatalogUiState.SetBanners -> {
+                    viewModel.updateSavedStateValue(viewModel.categorySavedState.copy(bannersLoaded = true))
                     binding.bannerView.setList(it.list)
                 }
+                is CatalogUiState.SetCategories -> setupCategoryRV(it.list)
             }
         }
         viewModel.loadBanners()
@@ -56,42 +53,22 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBind
         }
         //Banner
         binding.bannerView.setupBanner(bannerAdapter)
-        //test categories
-        lifecycleScope.launch {
-            delay(1000)
-            setupCategoryRV(CategoryItem.dummyData())
-        }
     }
 
     private fun setupCategoryRV(list: List<CategoryMainItem>) {
         list.forEach {
-            handleHeaderView(it)
-            handleRecyclerView(it)
+            if (it.data.isNotEmpty()) {
+                handleHeaderView(it)
+                handleRecyclerView(it)
+            }
         }
+        viewModel.updateSavedStateValue(viewModel.categorySavedState.copy(categoriesLoaded = true))
     }
 
     private fun handleRecyclerView(it: CategoryMainItem) {
+        val layoutManager = rvUtil.getCategoryLayoutManager(it) ?: return
         val adapter = CategoriesAdapter(::onItemClick).apply { submitList(it.data) }
-        val rv = RecyclerView(requireContext()).setup(adapter)
-        val layoutManager: RecyclerView.LayoutManager = when (it.type) {
-            CategoryUIType.GRID -> {
-                GridLayoutManager(requireContext(), it.rows)
-            }
-            CategoryUIType.LINEAR -> {
-                LinearLayoutManager(
-                    requireContext(),
-                    if (it.rows > 1) RecyclerView.VERTICAL else RecyclerView.HORIZONTAL,
-                    false
-                )
-            }
-            CategoryUIType.SLIDER -> {
-                LinearLayoutManager(
-                    requireContext(), RecyclerView.HORIZONTAL,
-                    false
-                )
-            }
-        }
-        rv.layoutManager = layoutManager
+        val rv = RecyclerView(requireContext()).setup(adapter, layoutManager)
         binding.lineaLayoutItems.addView(rv)
         rv.updateLayoutParams<LinearLayout.LayoutParams> {
             width = LinearLayout.LayoutParams.MATCH_PARENT
@@ -114,8 +91,8 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBind
                             tvSubHead.text = it.subHeader
                         }
                     }.root.apply {
-                    updatePadding(bottom = 8)
-                }
+                        updatePadding(bottom = 8)
+                    }
             binding.lineaLayoutItems.addView(header)
         }
     }

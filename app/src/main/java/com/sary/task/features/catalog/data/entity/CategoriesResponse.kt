@@ -21,7 +21,7 @@ data class CategoriesOtherResponse(
 )
 
 //class holder for all views
-data class CategoryItemMainResponse(
+data class CategoryMainItemResponse(
 
     @field:SerializedName("metadata")
     val metadata: CategoriesMetadata? = null,

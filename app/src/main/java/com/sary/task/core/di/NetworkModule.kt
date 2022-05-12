@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -51,14 +52,16 @@ class NetworkModule {
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         @AuthInterceptorOkHttpClient interceptor: SaryInterceptor
-    ): OkHttpClient {
-        val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-        okHttpClientBuilder.addInterceptor(interceptor)
-        if (BuildConfig.DEBUG) {
-            okHttpClientBuilder.addInterceptor(loggingInterceptor)
-        }
-        return okHttpClientBuilder.build()
-    }
+    ): OkHttpClient =
+        OkHttpClient.Builder().apply {
+            callTimeout(10, TimeUnit.SECONDS)
+            writeTimeout(10, TimeUnit.SECONDS)
+            readTimeout(10, TimeUnit.SECONDS)
+            addInterceptor(interceptor)
+            if (BuildConfig.DEBUG) {
+                addInterceptor(loggingInterceptor)
+            }
+        }.build()
 
     @Singleton
     @Provides

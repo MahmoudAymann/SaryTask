@@ -5,18 +5,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/fab"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:background="@drawable/circle_white_bg"
+        android:elevation="@dimen/_1sdp"
         app:backgroundTint="@color/white"
-        app:elevation="@dimen/_1sdp"
-        app:fabCustomSize="@dimen/_55sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/_18sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@null"
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_cart" />
 

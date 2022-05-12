@@ -2,7 +2,7 @@ package com.sary.task.network
 
 import com.sary.task.features.catalog.data.entity.BannerResponseItem
 import com.sary.task.features.catalog.data.entity.CategoriesOtherResponse
-import com.sary.task.features.catalog.data.entity.CategoryItemMainResponse
+import com.sary.task.features.catalog.data.entity.CategoryMainItemResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 
@@ -17,6 +17,6 @@ interface ApiService {
     fun getBanners(): Single<BaseResponse<BannerResponseItem, Any>>
 
     @GET(CATEGORIES)
-    fun getCategories(): Single<BaseResponse<CategoryItemMainResponse, CategoriesOtherResponse>>
+    fun getCategories(): Single<BaseResponse<CategoryMainItemResponse, CategoriesOtherResponse>>
 
 }

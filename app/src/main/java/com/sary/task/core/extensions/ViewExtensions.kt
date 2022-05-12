@@ -73,7 +73,11 @@ fun Activity.showKeyboard() = WindowInsetsControllerCompat(window, window.decorV
 fun View.show(show: Boolean = true) =
     if (show) visibility = View.VISIBLE else visibility = View.GONE
 
-fun RecyclerView.setup(adapter: BaseListAdapter<*, *>, showDivider: Boolean = false): RecyclerView {
+fun RecyclerView.setup(
+    adapter: BaseListAdapter<*, *>,
+    layoutManager: RecyclerView.LayoutManager,
+    showDivider: Boolean = false
+): RecyclerView {
     if (showDivider) {
         val decoration = DividerItemDecoration(
             context,
@@ -82,6 +86,7 @@ fun RecyclerView.setup(adapter: BaseListAdapter<*, *>, showDivider: Boolean = fa
         addItemDecoration(decoration)
     }
     this.adapter = adapter
+    this.layoutManager = layoutManager
     return this
 }
 

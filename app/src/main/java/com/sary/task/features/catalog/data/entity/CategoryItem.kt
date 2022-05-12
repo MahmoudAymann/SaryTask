@@ -132,9 +132,13 @@ data class CategoryItem(
                 ))*/
 
 enum class CategoryUIType {
-    GRID, LINEAR, SLIDER
+    GRID, LINEAR, SLIDER, UNKNOWN
 }
 
+/**
+ * @param UNKNWON is used to identify the illegal data type
+ * it will not added to the ui
+ * */
 enum class CategoryDataType(val id: Int) {
-    SMART(0), GROUP(1), BANNER(2), HEADER(3)
+    SMART(0), GROUP(1), BANNER(2), UNKNOWN(3)
 }
