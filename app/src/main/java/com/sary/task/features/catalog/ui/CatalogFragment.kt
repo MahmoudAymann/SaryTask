@@ -77,7 +77,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding>(FragmentCatalogBind
     }
 
     private fun onItemClick(item: CategoryItem) {
-        handleError(item.toString())
+        Toast.makeText(requireContext(), "${item.title} clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun handleHeaderView(it: CategoryMainItem) {
