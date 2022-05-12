@@ -13,4 +13,6 @@
     <color name="text_dark_gray">#9F9F9F</color>
     <color name="card_gray_bg">@color/white_opacity</color>
     <color name="track_progress_color">#DADADA</color>
+    <color name="light_black">#5B575B</color>
+
 </resources>

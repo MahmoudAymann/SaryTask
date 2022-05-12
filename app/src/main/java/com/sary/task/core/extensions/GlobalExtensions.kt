@@ -1,11 +1,15 @@
 package com.sary.task.core.extensions
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import com.google.gson.Gson
 import com.sary.task.core.arch.HashMapParams
 import org.json.JSONObject
 import timber.log.Timber
+
+val randomColor
+    get() = Color.rgb((30..200).random(), (30..200).random(), (30..200).random())
 
 fun Any.localize(context: Context): String =
     if (this is Int) context.getString(this) else this.toString()

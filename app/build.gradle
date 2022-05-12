@@ -76,4 +76,6 @@ dependencies {
     implementation deps.rxAndroid
     implementation deps.rxRetrofitAdapter
 
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
 }

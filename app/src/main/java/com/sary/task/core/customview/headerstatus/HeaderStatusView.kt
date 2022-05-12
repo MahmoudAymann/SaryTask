@@ -2,14 +2,13 @@ package com.sary.task.core.customview.headerstatus
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.sary.task.core.extensions.viewBinding
 import com.sary.task.databinding.HeaderStatusViewBinding
 
 class HeaderStatusView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-    private var _binding: HeaderStatusViewBinding? =
-        HeaderStatusViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private var _binding: HeaderStatusViewBinding? = viewBinding(HeaderStatusViewBinding::inflate)
     private val binding get() = _binding!!
 
 

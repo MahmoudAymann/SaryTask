@@ -19,16 +19,24 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import coil.imageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sary.task.R
 import com.sary.task.core.android.BaseListAdapter
 import timber.log.Timber
 
 typealias InflateFragment<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 typealias InflateActivity<T> = (LayoutInflater) -> T
+
+inline fun <T : ViewBinding> ViewGroup.viewBinding(
+    crossinline bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> T,
+    attachToParent: Boolean = true
+) =
+    bindingInflater.invoke(LayoutInflater.from(this.context), this, attachToParent)
 
 fun View.getAppDrawableFromColor(@ColorRes color: Int): Drawable =
     ColorDrawable(getAppColorFromRes(color))
@@ -65,7 +73,7 @@ fun Activity.showKeyboard() = WindowInsetsControllerCompat(window, window.decorV
 fun View.show(show: Boolean = true) =
     if (show) visibility = View.VISIBLE else visibility = View.GONE
 
-fun RecyclerView.setup(adapter: BaseListAdapter<*, *>, showDivider: Boolean) {
+fun RecyclerView.setup(adapter: BaseListAdapter<*, *>, showDivider: Boolean = false): RecyclerView {
     if (showDivider) {
         val decoration = DividerItemDecoration(
             context,
@@ -74,6 +82,7 @@ fun RecyclerView.setup(adapter: BaseListAdapter<*, *>, showDivider: Boolean) {
         addItemDecoration(decoration)
     }
     this.adapter = adapter
+    return this
 }
 
 fun View.loadImage(
@@ -99,6 +108,9 @@ fun View.loadImage(
                 when (this) {
                     is ImageView -> {
                         setImageDrawable(result)
+                    }
+                    is FloatingActionButton -> {
+                        setImageResource(R.drawable.ic_cart)
                     }
                     else -> background = result
                 }

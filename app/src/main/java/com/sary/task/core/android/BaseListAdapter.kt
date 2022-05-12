@@ -14,8 +14,10 @@ import androidx.viewbinding.ViewBinding
  * @param T the data item class.
  * @see BaseViewHolder
  */
-abstract class BaseListAdapter<VB : ViewBinding, T : Any>(callback: DiffUtil.ItemCallback<T> = BaseDiffCallback()) :
-    ListAdapter<T, BaseViewHolder<VB>>(callback) {
+abstract class BaseListAdapter<VB : ViewBinding, T : Any>(
+    val onItemClick: (T) -> Unit = {},
+    diffCallback: DiffUtil.ItemCallback<T> = BaseDiffCallback()
+) : ListAdapter<T, BaseViewHolder<VB>>(diffCallback) {
 
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
@@ -23,7 +25,9 @@ abstract class BaseListAdapter<VB : ViewBinding, T : Any>(callback: DiffUtil.Ite
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        getViewHolder(parent, viewType)
+        getViewHolder(parent, viewType).apply {
+            itemView.setOnClickListener { onItemClick.invoke(getItem(this.adapterPosition)) }
+        }
 
     open fun getViewHolder(parent: ViewGroup, viewType: Int) =
         BaseViewHolder(createBinding(parent, viewType))

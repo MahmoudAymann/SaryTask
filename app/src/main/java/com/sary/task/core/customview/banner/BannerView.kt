@@ -2,11 +2,11 @@ package com.sary.task.core.customview.banner
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sary.task.core.extensions.getAppDrawableFromColor
+import com.sary.task.core.extensions.viewBinding
 import com.sary.task.databinding.BannerViewBinding
 import com.sary.task.helper.TimerUtil
 import java.util.*
@@ -19,8 +19,7 @@ class BannerView(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         private const val PERIOD: Long = 4000 //time in milliseconds between sliding.
     }
 
-    private var _binding: BannerViewBinding? =
-        BannerViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private var _binding: BannerViewBinding? = viewBinding(BannerViewBinding::inflate)
     private val binding: BannerViewBinding get() = _binding!!
 
     private var timer: Timer? = null
